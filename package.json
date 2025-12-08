@@ -4,6 +4,7 @@
   "description": "E2E Testing Environment with Playwright Test Agents and Allure Report",
   "main": "index.js",
   "scripts": {
+    "build": "echo \"skip build: this repo only runs E2E tests against external staging\"",
     "test": "npx playwright test",
     "test:ui": "npx playwright test --ui",
     "test:headed": "npx playwright test --headed",
