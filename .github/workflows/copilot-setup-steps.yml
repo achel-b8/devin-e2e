@@ -29,6 +29,5 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # Customize this step as needed
-    - name: Build application
-      run: npx run build
+    # Note: このリポジトリはE2Eテスト専用のため、ビルドステップは不要です
+    # 対象アプリケーションのビルドが必要な場合は、ここにビルドコマンドを追加してください
