@@ -1,0 +1,30 @@
+{
+  "name": "devin-e2e",
+  "version": "1.0.0",
+  "description": "E2E Testing Environment with Playwright Test Agents and Allure Report",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report",
+    "allure:generate": "npx allure generate allure-results --clean -o allure-report",
+    "allure:open": "npx allure open allure-report",
+    "allure:serve": "npx allure serve allure-results",
+    "init-agents": "npx playwright init-agents --loop=vscode"
+  },
+  "keywords": [
+    "e2e",
+    "testing",
+    "playwright",
+    "allure"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "allure-commandline": "^2.34.1",
+    "allure-playwright": "^3.4.3"
+  }
+}

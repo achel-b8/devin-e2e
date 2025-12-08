@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Test results and reports
+allure-results/
+allure-report/
+playwright-report/
+test-results/
+
+# Playwright
+/playwright/.cache/
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
