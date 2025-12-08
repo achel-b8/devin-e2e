@@ -69,10 +69,18 @@ jobs:
           name: allure-results
           path: allure-results
 
+      - name: Check if gh-pages branch exists
+        id: gh_pages_check
+        run: |
+          if git ls-remote --heads origin gh-pages | grep -q gh-pages; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Get Allure history
+        if: steps.gh_pages_check.outputs.exists == 'true'
         uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
@@ -90,6 +98,7 @@ jobs:
           echo "$PWD/allure-2.30.0/bin" >> $GITHUB_PATH
 
       - name: Copy Allure history
+        if: steps.gh_pages_check.outputs.exists == 'true'
         run: |
           mkdir -p allure-results/history
           if [ -d "gh-pages/history" ]; then
