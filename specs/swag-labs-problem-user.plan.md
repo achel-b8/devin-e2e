@@ -120,18 +120,19 @@ problem_userは、UIの崩れや画像の不整合など、問題を意図的に
 - **problem_user特有**: Last Nameの入力が正常に動作しない可能性がある
 - エラーが発生する可能性がある
 
-### 4.2 チェックアウト Step One - First Name 未入力エラー
+### 4.2 チェックアウト Step One - Last Name 未入力エラー（problem_user特有）
 **Steps:**
 1. problem_user でログインする
 2. 任意の商品の「Add to cart」ボタンをクリックする
 3. カートアイコンをクリックする
 4. 「Checkout」ボタンをクリックする
-5. Last Name に「User」を入力する
+5. Last Name に「User」を入力する（`[data-test="lastName"]`を使用）
 6. Postal Code に「12345」を入力する
 7. 「Continue」ボタンをクリックする
 
 **Expected:**
-- エラーメッセージ「Error: First Name is required」が表示される
+- **problem_user特有**: `[data-test="lastName"]`への入力がFirst Nameフィールドに入ってしまうため、Last Nameは空のまま
+- エラーメッセージ「Error: Last Name is required」が表示される
 - 同画面に留まる
 
 ---
