@@ -1,5 +1,4 @@
-// spec: specs/swag-labs-e2e.plan.md
-// seed: tests/seed.spec.ts
+// spec: specs/swag-labs-problem-user.plan.md
 // user: problem_user
 
 import { test, expect } from '@playwright/test';
@@ -15,6 +14,7 @@ test.describe('8. 未認証アクセステスト (problem_user)', () => {
     await expect(page).toHaveURL(BASE_URL + '/');
 
     // Expected: エラーメッセージが表示される
-    await expect(page.locator('[data-test="error"]')).toContainText("You can only access '/inventory.html' when you are logged in");
+    const errorMessage = page.locator('[data-test="error"]');
+    await expect(errorMessage).toContainText("Epic sadface: You can only access '/inventory.html' when you are logged in.");
   });
 });
