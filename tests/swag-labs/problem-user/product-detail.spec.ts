@@ -1,5 +1,5 @@
 // spec: specs/swag-labs-problem-user.plan.md
-// user: problem_user
+// seed: tests/seed.spec.ts
 
 import { test, expect } from '@playwright/test';
 
@@ -12,10 +12,11 @@ async function login(page: any) {
   await page.fill('[data-test="username"]', PROBLEM_USER);
   await page.fill('[data-test="password"]', PASSWORD);
   await page.click('[data-test="login-button"]');
+  await page.waitForURL(/.*inventory.html/);
 }
 
-test.describe('6. 商品詳細画面テスト (problem_user)', () => {
-  test('6.1 商品詳細画面への遷移', async ({ page }) => {
+test.describe('5. 商品詳細画面テスト', () => {
+  test('5.1 商品詳細画面への遷移', async ({ page }) => {
     // 1. problem_user でログインする
     await login(page);
 
@@ -23,7 +24,7 @@ test.describe('6. 商品詳細画面テスト (problem_user)', () => {
     await page.click('[data-test="item-4-title-link"]');
 
     // Expected: /inventory-item.html?id=xxx に遷移する
-    await expect(page).toHaveURL(/inventory-item\.html/);
+    await expect(page).toHaveURL(/.*inventory-item.html/);
 
     // Expected: 商品の画像、商品名、説明、価格、Add to cart ボタンが表示される
     await expect(page.locator('.inventory_details_img')).toBeVisible();

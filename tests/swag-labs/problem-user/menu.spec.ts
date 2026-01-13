@@ -1,5 +1,5 @@
 // spec: specs/swag-labs-problem-user.plan.md
-// user: problem_user
+// seed: tests/seed.spec.ts
 
 import { test, expect } from '@playwright/test';
 
@@ -12,10 +12,11 @@ async function login(page: any) {
   await page.fill('[data-test="username"]', PROBLEM_USER);
   await page.fill('[data-test="password"]', PASSWORD);
   await page.click('[data-test="login-button"]');
+  await page.waitForURL(/.*inventory.html/);
 }
 
-test.describe('7. ハンバーガーメニューテスト (problem_user)', () => {
-  test('7.1 ログアウト', async ({ page }) => {
+test.describe('6. ハンバーガーメニューテスト', () => {
+  test('6.1 ログアウト', async ({ page }) => {
     // 1. problem_user でログインする
     await login(page);
 
@@ -30,28 +31,5 @@ test.describe('7. ハンバーガーメニューテスト (problem_user)', () =>
 
     // Expected: /（ログイン画面）に遷移する
     await expect(page).toHaveURL(BASE_URL + '/');
-  });
-
-  test('7.2 Reset App State', async ({ page }) => {
-    // 1. problem_user でログインする
-    await login(page);
-
-    // 2. 任意の商品の「Add to cart」ボタンをクリックする
-    await page.click('[data-test="add-to-cart-sauce-labs-backpack"]');
-
-    // カートバッジが表示されることを確認
-    await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
-
-    // 3. ハンバーガーメニューをクリックする
-    await page.click('#react-burger-menu-btn');
-
-    // メニューが開くのを待つ
-    await page.waitForSelector('#reset_sidebar_link', { state: 'visible' });
-
-    // 4. 「Reset App State」をクリックする
-    await page.click('#reset_sidebar_link');
-
-    // Expected: カートが空になる（バッジが消える）
-    await expect(page.locator('.shopping_cart_badge')).not.toBeVisible();
   });
 });

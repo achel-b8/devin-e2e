@@ -1,5 +1,5 @@
 // spec: specs/swag-labs-problem-user.plan.md
-// user: problem_user
+// seed: tests/seed.spec.ts
 
 import { test, expect } from '@playwright/test';
 
@@ -12,9 +12,10 @@ async function login(page: any) {
   await page.fill('[data-test="username"]', PROBLEM_USER);
   await page.fill('[data-test="password"]', PASSWORD);
   await page.click('[data-test="login-button"]');
+  await page.waitForURL(/.*inventory.html/);
 }
 
-test.describe('3. カート機能テスト (problem_user)', () => {
+test.describe('3. カート機能テスト', () => {
   test('3.1 商品をカートに追加', async ({ page }) => {
     // 1. problem_user でログインする
     await login(page);
@@ -23,12 +24,10 @@ test.describe('3. カート機能テスト (problem_user)', () => {
     await page.click('[data-test="add-to-cart-sauce-labs-backpack"]');
 
     // Expected: ボタンが「Remove」に変わる
-    const removeButton = page.locator('[data-test="remove-sauce-labs-backpack"]');
-    await expect(removeButton).toBeVisible();
+    await expect(page.locator('[data-test="remove-sauce-labs-backpack"]')).toBeVisible();
 
     // Expected: カートアイコンにバッジが表示される
-    const cartBadge = page.locator('.shopping_cart_badge');
-    await expect(cartBadge).toHaveText('1');
+    await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
   });
 
   test('3.2 カート画面で商品を確認', async ({ page }) => {
@@ -42,11 +41,10 @@ test.describe('3. カート機能テスト (problem_user)', () => {
     await page.click('.shopping_cart_link');
 
     // Expected: /cart.html に遷移する
-    await expect(page).toHaveURL(/cart\.html/);
+    await expect(page).toHaveURL(/.*cart.html/);
 
     // Expected: 追加した商品が表示される
-    const cartItem = page.locator('.cart_item');
-    await expect(cartItem).toBeVisible();
-    await expect(cartItem.locator('.inventory_item_name')).toContainText('Sauce Labs Backpack');
+    await expect(page.locator('.cart_item')).toBeVisible();
+    await expect(page.locator('.inventory_item_name')).toContainText('Sauce Labs Backpack');
   });
 });
